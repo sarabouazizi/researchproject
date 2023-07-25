@@ -13,7 +13,7 @@ https://www.kaggle.com/datasets/obulisainaren/multi-cancer
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
-from tensorflow.keras.utils import img_to_array, array_to_img
+from tensorflow.keras.utils import img_to_array, array_to_img, save_img
 import matplotlib.pyplot as plt
 import pandas as pd
 from random import randrange
@@ -64,8 +64,9 @@ def test_classification(model_path, dataset_path, label_names):
   i = 1
   for img,lbl in zip(images, labels):
     print("Predicting for image " + str(i))
-    plt.imshow(array_to_img(img))
-    plt.show()    
+    #plt.imshow(array_to_img(img))
+    #plt.show()
+    save_img('Results/test_' + dataset_path + '_' + str(i) + '.png', img)
     x = np.expand_dims(img, axis=0)
     score = model.predict(x).flatten()
     index = score.argmax(axis=0)    
@@ -75,9 +76,6 @@ def test_classification(model_path, dataset_path, label_names):
 
 
 if __name__ == "__main__":
-  test_classification("rp_train_organ_202307251020.h5", "Organ/", organ_labels)
-  test_classification("rp_train_cancer_202307251238.h5", "Cancer/", cancer_labels)
+  test_classification("rp_train_organ_202307251441.h5", "Organ", organ_labels)
+  test_classification("rp_train_cancer_202307251452.h5", "Cancer", cancer_labels)
 
-  
-
-  

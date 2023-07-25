@@ -19,13 +19,16 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.losses import SparseCategoricalCrossentropy
 from tensorflow.keras.optimizers import Adam
 from datetime import datetime
+import matplotlib.pyplot as plt
+import pandas as pd
+import os
 
 """Dataset loading
 
 """
 
 batch_size=16
-epochs = 50
+epochs = 10
 organ_labels = ["Blood", "Brain", "Breast", "Cervix", "Colon", "Kidney", "Lung", "Lymph", "Mouth"]
 
 def load_image_dataset(data_dir):
@@ -105,12 +108,34 @@ model.compile(optimizer=Adam(learning_rate=0.0001, beta_1=0.9, beta_2=0.999, eps
 # [TRAINING DATA], steps_per_epoch, epochs, validation_data, validation_steps
 # https://www.rdocumentation.org/packages/keras/versions/2.11.1/topics/fit
 with tf.device('/gpu:0'):
-    history = model.fit(
+  history = model.fit(
                 train_dataset,
                 batch_size=batch_size,
                 steps_per_epoch=600,
                 epochs=epochs,                
                 validation_data=val_dataset,
                 validation_steps=60)
-    
-model.save('rp_train_organ_{}.h5'.format(datetime.now().strftime('%Y%m%d%H%M')))
+
+  # Save model    
+  model.save('rp_train_organ_{}.h5'.format(datetime.now().strftime('%Y%m%d%H%M')))
+
+
+  # Save history
+  # USE plt.plot() TO PLOT:
+  # TRAINING ACCURACY, TRAINING LOSS, VALIDATION ACCURACY, VALIDATION LOSS
+  # https://machinelearningmastery.com/display-deep-learning-model-training-history-in-keras/
+  plt.figure()
+  plt.plot(history.history['accuracy'], 'orange', label='Training accuracy')
+  plt.plot(history.history['val_accuracy'], 'blue', label='Validation accuracy')
+  plt.plot(history.history['loss'], 'red', label='Training loss')
+  plt.plot(history.history['val_loss'], 'green', label='Validation loss')
+  plt.legend()
+
+  RESULT_DIR = 'Results'
+  save_name = 'rp_organ_history.png'
+  plt.savefig(os.path.join(RESULT_DIR,save_name))
+
+  hist_df = pd.DataFrame(history.history)
+  hist_csv_file = os.path.join(RESULT_DIR,'rp_organ_history.csv')
+  with open(hist_csv_file, mode='w') as f:
+      hist_df.to_csv(f)
