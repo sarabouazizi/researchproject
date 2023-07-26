@@ -3,6 +3,21 @@
 
 ## Introduction
 
+Deep learning has revolutionized the field of medical imaging, with applications in a wide range of tasks, including cancer detection. Deep learning algorithms are able to learn complex patterns in medical images that are often invisible to the human eye. This allows them to identify cancer cells with much greater accuracy than traditional methods.
+
+For example, deep learning algorithms have been shown to be very effective at detecting breast cancer in mammograms. In one study, a deep learning algorithm was able to achieve an accuracy of 99% in detecting breast cancer, compared to 85% for human radiologists. This means that deep learning algorithms have the potential to save lives by detecting cancer earlier and more accurately.
+
+In addition to cancer detection, deep learning is also being used for a variety of other tasks in medical imaging, such as:
+
+1. Segmentation of organs and tissues
+2. Classification of diseases
+3. Tracking tumor growth
+4. Planning and guiding surgery
+
+As deep learning algorithms continue to improve, they are likely to play an increasingly important role in the diagnosis and treatment of cancer.
+
+In this project, we train models to detect cancer and identify the organ in the image.
+
 ## Experiment
 
 In this project, I use the Multi Cancer image database from [Kaggle](https://www.kaggle.com/datasets/obulisainaren/multi-cancer).
@@ -82,6 +97,8 @@ _________________________________________________________________
 
 ## Results
 
+### Organ Classification Task
+
 The model for detecting the organ in the image has the following training results:
 >> loss: 0.6038 - accuracy: 0.7864 - val_loss: 0.6070 - val_accuracy: 0.7781
 When testing on random images, the following results are shown:
@@ -134,13 +151,65 @@ Predicting for image 16
 1/1 [==============================] - 0s 31ms/step
 Predicted: Cervix  and correct label is:  Cervix
 ```
+The training history is shown in the ![Figure](Results/rp_organ_history.png "Organ Classification")
 
+
+### Cancer Detection Task
 The model for predicting if the image shows cancer or not has the following training results:
 >> loss: 0.5093 - accuracy: 0.7377 - val_loss: 0.4893 - val_accuracy: 0.7719
 When testing on random images, the following results are shown:
 ```
-
+Predicting for image 1
+1/1 [==============================] - 1s 656ms/step
+Predicted: Malignant  and correct label is:  Malignant
+Predicting for image 2
+1/1 [==============================] - 0s 16ms/step
+Predicted: Benign  and correct label is:  Benign
+Predicting for image 3
+1/1 [==============================] - 0s 16ms/step
+Predicted: Benign  and correct label is:  Benign
+Predicting for image 4
+1/1 [==============================] - 0s 16ms/step
+Predicted: Malignant  and correct label is:  Malignant
+Predicting for image 5
+1/1 [==============================] - 0s 16ms/step
+Predicted: Malignant  and correct label is:  Malignant
+Predicting for image 6
+1/1 [==============================] - 0s 16ms/step
+Predicted: Malignant  and correct label is:  Malignant
+Predicting for image 7
+1/1 [==============================] - 0s 31ms/step
+Predicted: Malignant  and correct label is:  Malignant
+Predicting for image 8
+1/1 [==============================] - 0s 31ms/step
+Predicted: Malignant  and correct label is:  Malignant
+Predicting for image 9
+1/1 [==============================] - 0s 31ms/step
+Predicted: Benign  and correct label is:  Malignant
+Predicting for image 10
+1/1 [==============================] - 0s 31ms/step
+Predicted: Malignant  and correct label is:  Malignant
+Predicting for image 11
+1/1 [==============================] - 0s 31ms/step
+Predicted: Malignant  and correct label is:  Malignant
+Predicting for image 12
+1/1 [==============================] - 0s 31ms/step
+Predicted: Benign  and correct label is:  Benign
+Predicting for image 13
+1/1 [==============================] - 0s 16ms/step
+Predicted: Malignant  and correct label is:  Malignant
+Predicting for image 14
+1/1 [==============================] - 0s 16ms/step
+Predicted: Malignant  and correct label is:  Malignant
+Predicting for image 15
+1/1 [==============================] - 0s 31ms/step
+Predicted: Malignant  and correct label is:  Benign
+Predicting for image 16
+1/1 [==============================] - 0s 16ms/step
+Predicted: Malignant  and correct label is:  Malignant
 ``` 
+
+The training history is shown in the ![Figure](Results/rp_cancer_history.png "Cancer Detection")
 
 ## Conclusion
 
